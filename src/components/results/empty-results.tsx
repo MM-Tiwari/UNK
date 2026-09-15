@@ -15,12 +15,12 @@ export function EmptyResults({
   showBackToAnalyze = false,
 }: EmptyResultsProps) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/70 bg-card/20 p-8 text-center sm:p-12">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-card/30 p-8 text-center sm:p-12">
       <div className="rounded-full border border-border/70 bg-background/60 p-3 text-muted-foreground">
         <Clock className="size-5" />
       </div>
 
-      <h3 className="mt-4 font-mono text-sm font-semibold text-foreground">
+      <h3 className="mt-4 text-sm font-semibold text-foreground">
         {title}
       </h3>
       <p className="mt-1.5 max-w-md text-xs text-muted-foreground leading-relaxed">
@@ -39,8 +39,8 @@ export function EmptyResults({
             <ArrowLeft className="size-3.5" />
             Back to Ingestion
           </Link>
-          <div className="inline-flex items-center gap-1 text-[11px] text-muted-foreground font-mono">
-            <ShieldCheck className="size-3 text-emerald-400" />
+          <div className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+            <ShieldCheck className="size-3.5 text-emerald-400" />
             <span>AI Analysis Engine scheduled for Step 2</span>
           </div>
         </div>

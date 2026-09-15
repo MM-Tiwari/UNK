@@ -5,30 +5,30 @@ import { cn } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="relative flex flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-24 md:pt-32">
+    <section className="relative flex flex-col items-center px-4 pb-20 pt-20 text-center sm:px-6 sm:pt-28 md:pt-36">
       {/* Subtle background grid */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.025]"
         style={{
           backgroundImage:
             "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
+          backgroundSize: "56px 56px",
         }}
       />
 
       {/* Brand tag */}
-      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1 backdrop-blur-sm">
-        <span className="font-mono text-xs font-bold tracking-widest text-foreground">
+      <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-1.5 backdrop-blur-sm">
+        <span className="text-xs font-bold tracking-widest text-foreground">
           UNK
         </span>
         <span className="h-3 w-px bg-border" />
-        <span className="text-xs text-muted-foreground font-mono">
+        <span className="text-xs text-muted-foreground">
           Unknown Unknowns Detector
         </span>
       </div>
 
       {/* Main headline */}
-      <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-5xl md:text-6xl">
+      <h1 className="mx-auto max-w-4xl text-3xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl">
         Find the risks you didn&apos;t think to ask about.
       </h1>
 
@@ -40,7 +40,7 @@ export function Hero() {
       </p>
 
       {/* CTAs */}
-      <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+      <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
         <Link
           href="/analyze"
           className={cn(

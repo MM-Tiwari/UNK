@@ -16,7 +16,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/80 backdrop-blur-md">
       <nav
         className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6"
         aria-label="Main navigation"
@@ -24,9 +24,9 @@ export function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
+          className="flex items-center gap-2.5 text-foreground transition-opacity hover:opacity-90"
         >
-          <span className="font-mono text-lg font-bold tracking-tighter">
+          <span className="font-mono text-base font-bold tracking-tight text-foreground">
             UNK
           </span>
           <span className="hidden text-xs text-muted-foreground sm:inline">
@@ -41,10 +41,10 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted hover:text-foreground",
+                "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
                 pathname === link.href
-                  ? "text-foreground"
-                  : "text-muted-foreground"
+                  ? "bg-muted/70 text-foreground font-semibold"
+                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
               )}
             >
               {link.label}
@@ -66,17 +66,17 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-border/40 bg-background px-4 pb-4 pt-2 md:hidden">
+        <div className="border-t border-border/80 bg-background/95 backdrop-blur-md px-4 pb-4 pt-2 md:hidden">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                "block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
+                "block rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 pathname === link.href
-                  ? "text-foreground"
-                  : "text-muted-foreground"
+                  ? "bg-muted/70 text-foreground font-semibold"
+                  : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
               )}
             >
               {link.label}

@@ -18,12 +18,12 @@ export function MetricCard({
   return (
     <div
       className={cn(
-        "rounded-xl border border-border/60 bg-card/60 p-4 transition-all hover:border-border hover:bg-card/80",
+        "rounded-xl border border-border/70 bg-card/50 p-4 transition-all hover:border-border hover:bg-card/70",
         className
       )}
     >
       <div className="flex items-center justify-between">
-        <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           {label}
         </span>
         {Icon && <Icon className="size-4 text-muted-foreground/70" />}
@@ -34,7 +34,7 @@ export function MetricCard({
       </div>
 
       {subtext && (
-        <p className="mt-1 text-[11px] text-muted-foreground">
+        <p className="mt-1 text-xs text-muted-foreground">
           {subtext}
         </p>
       )}

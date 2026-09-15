@@ -24,10 +24,10 @@ export function FindingsSection({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-border/50 pb-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {categoryTag}
             </span>
-            <span className="rounded-full border border-border/60 bg-muted/40 px-2 py-0.2 font-mono text-[10px] text-muted-foreground">
+            <span className="rounded-full border border-border/60 bg-muted/40 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground">
               {count} findings
             </span>
           </div>

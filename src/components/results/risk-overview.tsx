@@ -22,11 +22,11 @@ export function RiskOverview({
       <div className="flex flex-col gap-6 rounded-2xl border border-border/70 bg-card/60 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/50 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-amber-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-emerald-500/30 bg-emerald-950/20 px-2.5 py-0.5 font-mono text-[11px] text-emerald-300">
+              <span className="size-1.5 rounded-full bg-emerald-400" />
               Analysis Complete
             </span>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground font-mono">
               v0.1.0-pre
             </span>
           </div>
@@ -34,15 +34,15 @@ export function RiskOverview({
           <h1 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             System Analysis
           </h1>
-          <p className="mt-1 text-xs text-muted-foreground max-w-xl">
+          <p className="mt-1 text-xs text-muted-foreground max-w-xl leading-relaxed">
             Comprehensive audit of structural risks, single points of failure, unvalidated assertions, and hidden dependencies.
           </p>
         </div>
 
-        {/* Overall Risk Score Placeholder */}
-        <div className="flex items-center gap-4 rounded-xl border border-border/60 bg-background/60 px-5 py-4 shrink-0">
+        {/* Overall Risk Score */}
+        <div className="flex items-center gap-4 rounded-xl border border-border/70 bg-background/60 px-5 py-4 shrink-0">
           <div className="rounded-lg border border-border/60 bg-card/80 p-2.5 text-muted-foreground">
-            <Shield className="size-6" />
+            <Shield className="size-6 text-emerald-400" />
           </div>
           <div>
             <div className="font-mono text-3xl font-extrabold tracking-tight text-foreground">

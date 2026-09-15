@@ -65,17 +65,17 @@ const features: FeatureItem[] = [
 
 export function FeatureGrid() {
   return (
-    <section className="border-t border-border/40 py-20 px-4 sm:px-6">
+    <section className="border-t border-border py-24 px-4 sm:px-6">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="mb-14 text-center">
-          <p className="font-mono text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+        <div className="mb-16 text-center">
+          <p className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
             Audit Categories
           </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             What does UNK look for?
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Six systematic dimensions designed to challenge author optimism and reveal architectural blind spots.
           </p>
         </div>
@@ -87,10 +87,10 @@ export function FeatureGrid() {
             return (
               <div
                 key={feature.title}
-                className="group relative rounded-xl border border-border/60 bg-card/60 p-6 transition-all duration-200 hover:border-border hover:bg-card/90"
+                className="group relative rounded-xl border border-border bg-card/70 p-6 transition-all duration-200 hover:border-primary/30 hover:bg-card"
               >
                 <div className="flex items-center justify-between">
-                  <div className="rounded-lg border border-border/60 bg-background/60 p-2 text-muted-foreground group-hover:text-foreground transition-colors">
+                  <div className="rounded-lg border border-border bg-background/60 p-2 text-muted-foreground group-hover:text-primary transition-colors">
                     <Icon className="size-5" />
                   </div>
                   <span className="font-mono text-[11px] text-muted-foreground uppercase tracking-wider">
@@ -110,14 +110,14 @@ export function FeatureGrid() {
         </div>
 
         {/* Final CTA Section */}
-        <div className="mt-20 rounded-2xl border border-border/60 bg-gradient-to-b from-card/80 to-card/40 p-8 sm:p-12 text-center">
+        <div className="mt-24 rounded-2xl border border-border bg-card/60 p-8 sm:p-12 text-center">
           <h3 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Challenge your system.
           </h3>
-          <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+          <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground leading-relaxed">
             Provide your architecture, proposal, or business logic. Surface blind spots before production does.
           </p>
-          <div className="mt-6">
+          <div className="mt-8">
             <Link
               href="/analyze"
               className={cn(

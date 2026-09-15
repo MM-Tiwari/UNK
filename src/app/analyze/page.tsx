@@ -11,7 +11,7 @@ export default function AnalyzePage() {
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       {/* Header */}
       <div className="mb-10">
-        <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           System Ingestion
         </p>
         <h1 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -25,7 +25,7 @@ export default function AnalyzePage() {
       {/* Main Grid: Input Area (2 cols) + Best Practices Panel (1 col) */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <div className="rounded-2xl border border-border/60 bg-card/40 p-6 sm:p-8">
+          <div className="rounded-2xl border border-border/70 bg-card/50 p-6 sm:p-8">
             <AnalysisInput />
           </div>
         </div>

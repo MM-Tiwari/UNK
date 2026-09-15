@@ -44,11 +44,11 @@ export function AnalysisTypeSelector({
     <div>
       <label
         htmlFor="analysis-type"
-        className="block text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2"
+        className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5"
       >
         Analysis Type
       </label>
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
         {typeOptions.map((opt) => {
           const isSelected = value === opt.id;
           return (
@@ -57,10 +57,10 @@ export function AnalysisTypeSelector({
               type="button"
               onClick={() => onChange(opt.id)}
               className={cn(
-                "flex flex-col items-start rounded-lg border p-3 text-left transition-all",
+                "flex flex-col items-start rounded-xl border p-3.5 text-left transition-all",
                 isSelected
-                  ? "border-foreground/40 bg-muted/60 ring-1 ring-border shadow-xs"
-                  : "border-border/60 bg-card/40 hover:border-border hover:bg-card/80"
+                  ? "border-emerald-500/50 bg-emerald-950/15 ring-1 ring-emerald-500/30 shadow-xs"
+                  : "border-border/70 bg-card/40 hover:border-border hover:bg-card/70"
               )}
             >
               <div className="flex w-full items-center justify-between">
@@ -68,7 +68,7 @@ export function AnalysisTypeSelector({
                   {opt.label}
                 </span>
                 {isSelected && (
-                  <span className="size-1.5 rounded-full bg-emerald-500" />
+                  <span className="size-1.5 rounded-full bg-emerald-400" />
                 )}
               </div>
               <span className="mt-1 text-[11px] text-muted-foreground leading-snug">
