@@ -1,189 +1,330 @@
 # UNK — Unknown Unknowns Detector
 
-> Systematically identify blind spots, hidden assumptions, cascading dependencies, failure modes, edge cases, and unbacked claims before they materialize in production.
+> An AI-powered tool that helps you find risks and blind spots in a system, product, or project idea.
+
+## Live Links
+
+Add your deployed links here after hosting the project:
+
+- **Live Demo:** `[Add deployed demo link here]`
+- **Repository:** [https://github.com/MM-Tiwari/UNK](https://github.com/MM-Tiwari/UNK)
+- **API URL:** `[Add deployed API link here if needed]`
 
 ---
 
-## Overview
+## What is UNK?
 
-**UNK** is an AI-assisted systems audit and architectural intelligence platform. When technical architects, research teams, or product engineers design systems, cognitive bias and tunnel vision often cause critical premises to remain unstated. 
+When people design a system or project, they usually focus on what should happen when everything works correctly. They may forget to think about:
 
-UNK does not claim to magically foresee arbitrary future anomalies. Instead, it applies a structured adversarial interrogation framework to technical specs, architectural documents, and proposals to systematically surface:
+- What happens when an API is unavailable?
+- What assumptions are being made about users or data?
+- Which outside services does the project depend on?
+- What happens when the system receives unexpected input?
+- What evidence supports the expected performance?
+- What happens during a failure, migration, or sudden increase in traffic?
 
-- **Hidden Assumptions:** Foundational premises taken for granted (e.g., zero latency, instant consistency, high network availability).
-- **Hidden Dependencies:** External SaaS APIs, transitive library vulnerabilities, shared infrastructure, and single points of failure.
-- **Potential Failure Modes:** Cascading timeouts, resource pool exhaustion, split-brain states, and silent data corruption.
-- **Edge Cases:** Boundary thresholds, race condition windows, clock drift, and concurrency collisions.
-- **Missing Evidence:** Unsupported performance estimations and unbacked empirical claims.
-- **Unexplored Scenarios:** Disaster recovery gaps, compliance audits, and scale degradation.
+UNK is designed to ask these questions.
 
----
+You provide a description of a system, product, architecture, research idea, or project proposal. UNK sends it to an AI analysis engine and produces a structured **Blind Spot Report**.
 
-## Problem
+The report groups possible issues into categories, gives each issue a severity, calculates a risk score, and suggests possible mitigations.
 
-Human authors design systems under cognitive constraints:
-1. **Optimism Bias:** Engineers naturally focus on the "happy path" where network calls succeed and downstream services respond within SLA.
-2. **Tacit Knowledge Gaps:** Core operational dependencies often reside only in tribal knowledge and are omitted from architecture documents.
-3. **Implicit Invariants:** Assumptions regarding idempotency, clock synchronization, or user compliance are rarely explicitly validated until an outage occurs.
+> UNK does not predict the future. It uses the information you provide to identify risks, assumptions, and questions that may deserve more attention.
 
----
+## Why was this project built?
 
-## Proposed Solution
+People often miss important risks because of:
 
-UNK ingests system architecture proposals and applies an adversarial audit pipeline that challenges unstated assumptions, maps external coupling, stress-tests failure modes, and outputs a prioritized **Blind Spot Report** equipped with probability, uncertainty, impact, confidence, and mitigation recommendations.
+1. **Optimism bias** — expecting the happy path where everything works.
+2. **Hidden knowledge** — depending on information that was never written down.
+3. **Unstated assumptions** — assuming that a service is always available, data is always correct, or users always behave as expected.
+4. **Incomplete evidence** — making performance or business claims without enough supporting data.
 
----
+UNK turns these concerns into a repeatable analysis process.
 
-## Current Features
+## How it works
 
-- **AI Blind-Spot Analysis:** Server-side NVIDIA NIM chat-completions integration with strict structured JSON output.
-- **Adversarial Analysis Pipeline:** One analysis pass that internally covers system understanding, assumptions, dependencies, failure modes, edge cases, evidence gaps, and unexplored scenarios.
-- **Deterministic Risk Scoring:** `Impact × Probability × Uncertainty`, with the internal impact score kept separate from the public finding model.
-- **Results Dashboard:** Live risk score, metrics, critical/high-priority findings, and six category sections including Unexplored Scenarios.
-- **Validation & Error Handling:** Request validation with Zod plus explicit handling for missing API keys, rate limits, upstream API failures, malformed AI output, timeouts, and network failures.
-- **Text/Markdown/JSON Uploads:** Browser-side text extraction for supported formats. PDF/DOCX parsing is intentionally deferred to Step 3.
-- **Session-Based Results:** The completed analysis is stored in browser `sessionStorage` so the results page can render the current run without a database.
-- **Security:** The NVIDIA API key is used only on the server and is never sent to the browser.
+1. Open the **Analyze** page.
+2. Paste a description or upload a supported text file.
+3. Choose the type of analysis.
+4. Click **Analyze with UNK**.
+5. The server sends the input to NVIDIA NIM.
+6. The AI returns structured findings.
+7. UNK validates the response and calculates risk metrics.
+8. The results dashboard displays the Blind Spot Report.
 
-## Planned Features (Upcoming Steps)
+The analysis uses these seven stages internally:
 
-- **Step 3 — Document Parsing & Ingestion:**
-  - Multi-format document parser (PDF, Markdown, DOCX, OpenAPI/Swagger JSON).
-  - Chunking and AST extraction for software architecture diagrams and schemas.
-- **Step 4 — Export & Collaboration:**
-  - Export structured Blind Spot Reports to Markdown, JSON, and PDF formats.
-  - Issue tracker export (GitHub Issues, Linear tickets, Jira).
+1. Understand the system
+2. Map assumptions
+3. Trace dependencies
+4. Challenge failure modes
+5. Search for edge cases
+6. Audit missing evidence
+7. Calculate and organize risk
 
----
+## Main features
 
-## Architecture
+- Analyze system descriptions, software architectures, product ideas, research proposals, and project proposals.
+- Paste text directly into the analyzer.
+- Upload `.txt`, `.md`, and `.json` files.
+- Identify hidden assumptions.
+- Identify external and internal dependencies.
+- Find possible failure modes.
+- Find edge cases and unusual scenarios.
+- Highlight missing evidence.
+- Surface unexplored recovery, migration, misuse, and scale scenarios.
+- Assign severity levels: Critical, High, Medium, Low, and Info.
+- Calculate a deterministic risk score.
+- Show metrics for blind spots, assumptions, dependencies, and evidence coverage.
+- Provide recommendations for reducing each risk.
+- Validate AI output with Zod before displaying it.
+- Handle missing API keys, rate limits, invalid responses, timeouts, and network errors.
+- Keep the NVIDIA API key on the server so it is not sent to the browser.
+- Store the current analysis result in browser `sessionStorage`.
 
+## Supported input
+
+You can provide input in either of these ways:
+
+### Paste text
+
+Paste a system or project description directly into the text area.
+
+The input must contain at least **50 characters** and can be up to approximately **100,000 characters**, depending on the configured token limit.
+
+For better results, include:
+
+- The purpose of the system
+- Main components
+- User flows
+- Data flows
+- External services
+- Known constraints
+- Performance expectations
+- Security or compliance requirements
+- Assumptions already made by the team
+
+### Upload a file
+
+The browser currently extracts text from:
+
+- `.txt`
+- `.md`
+- `.json`
+- Other browser-recognized text files
+
+PDF and DOCX parsing are not implemented yet. They are planned for a future version.
+
+## Analysis categories
+
+UNK organizes findings into six categories:
+
+| Category | What it means |
+| --- | --- |
+| Hidden Assumption | An important belief that has not been verified. |
+| Dependency | A service, library, platform, or component that the system relies on. |
+| Failure Mode | Something that may go wrong during an outage, timeout, restart, or partial failure. |
+| Edge Case | An unusual input, boundary condition, race condition, or unexpected user action. |
+| Missing Evidence | A claim or estimate that does not have enough supporting proof. |
+| Unexplored Scenario | An important situation that the proposal does not appear to consider. |
+
+## Risk scoring
+
+Each finding has three important numeric values:
+
+- **Impact** — How serious the consequences could be.
+- **Probability** — How plausible the issue is based on the supplied input.
+- **Uncertainty** — How incomplete or unclear the supporting information is.
+
+The internal risk calculation is:
+
+```text
+Impact × Probability × Uncertainty
 ```
-UNK Architecture
-├── Client Application (Next.js 16 App Router)
-│   ├── Landing Page (/)
-│   ├── Ingestion Interface (/analyze)
-│   └── Results Dashboard (/results)
-├── Domain Types & Contracts (`src/types/`)
-│   └── analysis.ts (BlindSpotFinding, AnalysisResult, Metrics)
-├── AI Pipeline Modules (`src/lib/`)
-│   ├── ai/
-│   │   ├── client.ts (LLM Gateway)
-│   │   ├── prompts/ (Adversarial System Prompts)
-│   │   └── analyzers/ (Domain-Specific Reasoning)
-│   ├── scoring/ (Risk & Confidence Scoring)
-│   └── parsing/ (Multi-format Document Ingestion)
-└── UI Design System (`src/components/`)
-    ├── ui/ (shadcn base-ui primitives)
-    ├── layout/ (Navbar, Footer)
-    ├── landing/ (Hero, Pipeline, FeatureGrid)
-    ├── analyze/ (Input Orchestrator, TypeSelector, UploadZone, BestPractices)
-    └── results/ (RiskOverview, FindingCard, FindingsSection, EmptyResults)
-```
 
----
+UNK uses this calculation to sort findings and produce an overall risk score from 0 to 100.
 
-## Tech Stack
+## Tech stack
 
-- **Framework:** [Next.js](https://nextjs.org/) (v16 App Router)
-- **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/) (v4)
-- **Component Primitives:** [shadcn/ui](https://ui.shadcn.com/) (`@base-ui/react`)
-- **Icons:** [Lucide Icons](https://lucide.dev/)
-- **Linting & Code Quality:** ESLint with Next.js configuration
+- **Framework:** [Next.js](https://nextjs.org/) 16 with the App Router
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **UI:** [React](https://react.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/) v4
+- **UI primitives:** [Base UI](https://base-ui.com/) and shadcn-style components
+- **Icons:** [Lucide](https://lucide.dev/)
+- **AI provider:** [NVIDIA NIM](https://build.nvidia.com/)
+- **Validation:** [Zod](https://zod.dev/)
+- **Testing:** Node test runner through [tsx](https://tsx.is/)
+- **Code quality:** ESLint
 
----
+## Project structure
 
-## Project Structure
-
-```
-├── public/                 # Static assets
+```text
+UNK/
+├── public/                 # Static files and icons
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx      # Root layout (Dark theme, Navbar, Footer)
-│   │   ├── page.tsx        # Landing page
-│   │   ├── globals.css     # Design tokens & Tailwind theme
-│   │   ├── analyze/
-│   │   │   └── page.tsx    # System ingestion page
-│   │   └── results/
-│   │       └── page.tsx    # Results dashboard page
+│   │   ├── api/analyze/    # Server endpoint for AI analysis
+│   │   ├── analyze/        # Analysis input page
+│   │   ├── results/        # Results dashboard page
+│   │   ├── globals.css     # Global styles and design tokens
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Landing page
 │   ├── components/
-│   │   ├── analyze/        # Input orchestrators & guidance
-│   │   ├── landing/        # Hero, Pipeline, FeatureGrid
-│   │   ├── layout/         # Responsive Navbar & Footer
-│   │   ├── results/        # RiskOverview, FindingCard, Sections
-│   │   └── ui/             # Core UI components
+│   │   ├── analyze/        # Input, upload, and analysis controls
+│   │   ├── landing/        # Landing page sections
+│   │   ├── layout/         # Navbar and footer
+│   │   ├── results/        # Dashboard, metrics, and finding cards
+│   │   └── ui/             # Reusable UI components
 │   ├── lib/
-│   │   ├── ai/             # NVIDIA NIM client, prompts, and validated analyzers
-│   │   ├── parsing/        # Future document parser modules
-│   │   ├── scoring/        # Deterministic risk scoring and metrics
-│   │   └── utils.ts        # Tailwind merge & styling utilities
-│   └── types/
-│       └── analysis.ts     # Core domain type definitions
-├── .env.example            # Environment template
-├── .gitignore              # Git ignore rules
-├── components.json         # shadcn configuration
-├── package.json            # Project dependencies & scripts
+│   │   ├── ai/             # NVIDIA client, prompts, and AI validation
+│   │   ├── parsing/        # Future document parsing modules
+│   │   ├── scoring/        # Risk scoring and metrics
+│   │   └── utils.ts        # Shared styling utilities
+│   └── types/              # Shared TypeScript domain types
+├── tests/                  # Automated tests
+├── .env.example            # Environment variable template
+├── package.json            # Scripts and dependencies
 ├── tsconfig.json           # TypeScript configuration
 └── README.md               # Project documentation
 ```
 
----
+## Requirements
 
-## Local Development
+Install these tools before running the project:
 
-### Prerequisites
+- Node.js 18.18 or newer
+- npm 9 or newer
+- A NVIDIA NIM API key for running real analyses
 
-- Node.js 18.18+ or 20+
-- npm 9+
+## Run the project locally
 
-### Setup
+### 1. Clone the repository
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/MM-Tiwari/UNK.git
-   cd UNK
-   ```
+```bash
+git clone https://github.com/MM-Tiwari/UNK.git
+cd UNK
+```
 
-2. **Install dependencies:**
-   ```bash
-   npm ci
-   ```
+### 2. Install dependencies
 
-3. **Configure environment:**
-   ```bash
-   cp .env.example .env.local
-   ```
+```bash
+npm ci
+```
 
-4. **Start the development server:**
-   ```bash
-   npm run dev
-   ```
+### 3. Create the environment file
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Copy the example file:
 
-### Available Scripts
+```bash
+cp .env.example .env.local
+```
 
-- `npm run dev` — Starts the Next.js local development server.
-- `npm run build` — Builds the application for production.
-- `npm run start` — Runs the compiled production build.
-- `npm run lint` — Runs ESLint code quality checks.
-- `npm test` — Runs the focused Node test suite for scoring, validation, and AI error handling.
+Then open `.env.local` and add your NVIDIA API key:
 
-### Environment variables
+```env
+NVIDIA_API_KEY=your_nvidia_api_key_here
+AI_MODEL=openai/gpt-oss-20b
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
+MAX_INPUT_TOKENS=16000
+```
+
+Do not commit `.env.local` or share your API key.
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Available commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server. |
+| `npm run lint` | Check the code with ESLint. |
+| `npm test` | Run the automated tests. |
+| `npm run build` | Create a production build. |
+| `npm run start` | Start the production build locally. |
+
+Before committing changes, it is useful to run:
+
+```bash
+npm run lint
+npm test
+npm run build
+```
+
+## Environment variables
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `NVIDIA_API_KEY` | Yes for analysis | NVIDIA NIM API credential. |
-| `AI_MODEL` | No | Model name; defaults to `openai/gpt-oss-20b`. |
+| `NVIDIA_API_KEY` | Yes for AI analysis | API key used to call NVIDIA NIM. |
+| `AI_MODEL` | No | Model name. Defaults to `openai/gpt-oss-20b`. |
 | `NVIDIA_BASE_URL` | No | NVIDIA-compatible API base URL. |
-| `MAX_INPUT_TOKENS` | No | Reserved input token limit configuration. |
+| `MAX_INPUT_TOKENS` | No | Approximate input token budget. Defaults to `16000`. |
 
----
+The API key is read only by the server-side analysis route. It is not sent to the browser.
+
+## Deploying the project
+
+UNK is suitable for a portfolio or learning-project deployment on a Next.js-compatible hosting platform such as Vercel.
+
+General deployment steps:
+
+1. Import the GitHub repository into your hosting provider.
+2. Select the `main` branch.
+3. Add the environment variables listed above.
+4. Deploy the project using the default Next.js settings.
+5. Open the deployed `/analyze` page.
+6. Run a test analysis.
+
+After deployment, add your links to the **Live Links** section at the top of this README.
+
+## Current limitations
+
+This is a portfolio and learning project. The following features are not implemented yet:
+
+- PDF and DOCX document parsing
+- User accounts and authentication
+- Database-backed analysis history
+- Sharing results with other users
+- Report export to PDF, Markdown, or JSON
+- GitHub Issues, Linear, or Jira export
+- Production rate limiting
+- Advanced monitoring and analytics
+
+Current results are stored in browser `sessionStorage`, so they are temporary and are not available as a permanent account history.
 
 ## Roadmap
 
-- [x] **Milestone 1:** Architecture foundation, domain modeling, and responsive dark-first frontend UI.
-- [x] **Milestone 2:** NVIDIA NIM LLM integration, adversarial challenge prompts, structured validation, and deterministic risk scoring.
-- [ ] **Milestone 3:** Document ingestion engine (PDF text extraction, Markdown AST parsing).
-- [ ] **Milestone 4:** Exporting and report sharing (PDF reports, JSON export, GitHub issues integration).
+- [x] Responsive landing page and analysis interface
+- [x] NVIDIA NIM AI integration
+- [x] Structured AI response validation with Zod
+- [x] Deterministic risk scoring
+- [x] Results dashboard with categories and metrics
+- [x] Error handling for common AI and network failures
+- [x] Automated tests for core logic
+- [ ] PDF and DOCX parsing
+- [ ] Report export
+- [ ] Persistent storage and analysis history
+- [ ] Authentication and collaboration
+- [ ] Issue tracker integrations
+
+## Security notes
+
+- Keep `NVIDIA_API_KEY` in `.env.local` or your hosting provider's secret manager.
+- Never commit real API keys to GitHub.
+- Do not paste confidential information into a public deployment unless you understand how the AI provider processes it.
+- The current project does not provide authentication or permanent data deletion controls.
+
+## Resume description
+
+> Built UNK, a full-stack Next.js and TypeScript application that uses NVIDIA NIM and structured adversarial prompts to identify hidden assumptions, dependencies, failure modes, edge cases, and missing evidence in system and project proposals. Implemented server-side API key protection, Zod validation, deterministic risk scoring, a responsive results dashboard, automated tests, and production build verification.
+
+## License
+
+No license has been added yet. Add a license file if you plan to distribute or open-source the project.
