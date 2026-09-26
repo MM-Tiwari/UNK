@@ -1,6 +1,3 @@
-const NVIDIA_CHAT_COMPLETIONS_URL =
-  `${process.env.NVIDIA_BASE_URL?.trim() || "https://integrate.api.nvidia.com/v1"}/chat/completions`;
-
 export class AIClientError extends Error {
   constructor(
     message: string,
@@ -18,7 +15,14 @@ export class AIClientError extends Error {
 }
 
 function getModel() {
-  return process.env.AI_MODEL?.trim() || "openai/gpt-oss-20b";
+  return process.env["AI_MODEL"]?.trim() || "openai/gpt-oss-20b";
+}
+
+function getNvidiaChatCompletionsUrl() {
+  const baseUrl =
+    process.env["NVIDIA_BASE_URL"]?.trim() ||
+    "https://integrate.api.nvidia.com/v1";
+  return `${baseUrl}/chat/completions`;
 }
 
 export async function createStructuredAnalysis<T>(args: {
@@ -26,7 +30,7 @@ export async function createStructuredAnalysis<T>(args: {
   userPrompt: string;
   jsonSchema: Record<string, unknown>;
 }): Promise<T> {
-  const apiKey = process.env.NVIDIA_API_KEY?.trim();
+  const apiKey = process.env["NVIDIA_API_KEY"]?.trim();
 
   if (!apiKey) {
     throw new AIClientError(
@@ -42,7 +46,7 @@ export async function createStructuredAnalysis<T>(args: {
     let response: Response;
 
     try {
-      response = await fetch(NVIDIA_CHAT_COMPLETIONS_URL, {
+      response = await fetch(getNvidiaChatCompletionsUrl(), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${apiKey}`,
