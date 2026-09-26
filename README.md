@@ -36,14 +36,14 @@ UNK ingests system architecture proposals and applies an adversarial audit pipel
 
 ## Current Features
 
-- **AI Blind-Spot Analysis:** Server-side OpenAI Responses API integration with strict structured JSON output.
+- **AI Blind-Spot Analysis:** Server-side NVIDIA NIM chat-completions integration with strict structured JSON output.
 - **Adversarial Analysis Pipeline:** One analysis pass that internally covers system understanding, assumptions, dependencies, failure modes, edge cases, evidence gaps, and unexplored scenarios.
 - **Deterministic Risk Scoring:** `Impact × Probability × Uncertainty`, with the internal impact score kept separate from the public finding model.
 - **Results Dashboard:** Live risk score, metrics, critical/high-priority findings, and six category sections including Unexplored Scenarios.
 - **Validation & Error Handling:** Request validation with Zod plus explicit handling for missing API keys, rate limits, upstream API failures, malformed AI output, timeouts, and network failures.
 - **Text/Markdown/JSON Uploads:** Browser-side text extraction for supported formats. PDF/DOCX parsing is intentionally deferred to Step 3.
 - **Session-Based Results:** The completed analysis is stored in browser `sessionStorage` so the results page can render the current run without a database.
-- **Security:** The OpenAI key is used only on the server and is never sent to the browser.
+- **Security:** The NVIDIA API key is used only on the server and is never sent to the browser.
 
 ## Planned Features (Upcoming Steps)
 
@@ -66,7 +66,7 @@ UNK Architecture
 │   └── Results Dashboard (/results)
 ├── Domain Types & Contracts (`src/types/`)
 │   └── analysis.ts (BlindSpotFinding, AnalysisResult, Metrics)
-├── Future AI Pipeline Modules (`src/lib/`)
+├── AI Pipeline Modules (`src/lib/`)
 │   ├── ai/
 │   │   ├── client.ts (LLM Gateway)
 │   │   ├── prompts/ (Adversarial System Prompts)
@@ -114,9 +114,9 @@ UNK Architecture
 │   │   ├── results/        # RiskOverview, FindingCard, Sections
 │   │   └── ui/             # Core UI components
 │   ├── lib/
-│   │   ├── ai/             # Future AI engine stubs
-│   │   ├── parsing/        # Future parser stubs
-│   │   ├── scoring/        # Future scoring engine stubs
+│   │   ├── ai/             # NVIDIA NIM client, prompts, and validated analyzers
+│   │   ├── parsing/        # Future document parser modules
+│   │   ├── scoring/        # Deterministic risk scoring and metrics
 │   │   └── utils.ts        # Tailwind merge & styling utilities
 │   └── types/
 │       └── analysis.ts     # Core domain type definitions
@@ -141,13 +141,13 @@ UNK Architecture
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-org/unk.git
-   cd unk
+   git clone https://github.com/MM-Tiwari/UNK.git
+   cd UNK
    ```
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   npm ci
    ```
 
 3. **Configure environment:**
@@ -168,12 +168,22 @@ UNK Architecture
 - `npm run build` — Builds the application for production.
 - `npm run start` — Runs the compiled production build.
 - `npm run lint` — Runs ESLint code quality checks.
+- `npm test` — Runs the focused Node test suite for scoring, validation, and AI error handling.
+
+### Environment variables
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `NVIDIA_API_KEY` | Yes for analysis | NVIDIA NIM API credential. |
+| `AI_MODEL` | No | Model name; defaults to `openai/gpt-oss-20b`. |
+| `NVIDIA_BASE_URL` | No | NVIDIA-compatible API base URL. |
+| `MAX_INPUT_TOKENS` | No | Reserved input token limit configuration. |
 
 ---
 
 ## Roadmap
 
 - [x] **Milestone 1:** Architecture foundation, domain modeling, and responsive dark-first frontend UI.
-- [x] **Milestone 2:** OpenAI LLM integration, adversarial challenge prompts, structured validation, and deterministic risk scoring.
+- [x] **Milestone 2:** NVIDIA NIM LLM integration, adversarial challenge prompts, structured validation, and deterministic risk scoring.
 - [ ] **Milestone 3:** Document ingestion engine (PDF text extraction, Markdown AST parsing).
 - [ ] **Milestone 4:** Exporting and report sharing (PDF reports, JSON export, GitHub issues integration).

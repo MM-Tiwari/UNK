@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import { ArrowLeft, Layers, Info } from "lucide-react";
 import { RiskOverview } from "./risk-overview";
 import { FindingsSection } from "./findings-section";
@@ -20,18 +20,13 @@ const sectionMeta: Array<{ id: string; title: string; tag: string; description: 
 ];
 
 export function ResultsDashboard() {
-  const [result, setResult] = useState<AnalysisResult | null>(null);
+  const result = useSyncExternalStore(
+    subscribeToStorage,
+    getStoredAnalysisResult,
+    getServerAnalysisResult,
+  );
 
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem("unk_analysis_result");
-      if (raw) setResult(JSON.parse(raw) as AnalysisResult);
-    } catch {
-      setResult(null);
-    }
-  }, []);
-
-  const findings = result?.findings ?? [];
+  const findings = useMemo(() => result?.findings ?? [], [result]);
   const critical = useMemo(() => findings.filter((finding) => finding.severity === "critical" || finding.severity === "high").slice(0, 5), [findings]);
 
   if (!result) {
@@ -141,4 +136,33 @@ export function ResultsDashboard() {
       </div>
     </div>
   );
+}
+
+let storedResult: AnalysisResult | null | undefined;
+
+function subscribeToStorage(onStoreChange: () => void) {
+  const handleStorageChange = () => {
+    storedResult = undefined;
+    onStoreChange();
+  };
+
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
+}
+
+function getStoredAnalysisResult(): AnalysisResult | null {
+  if (storedResult !== undefined) return storedResult;
+
+  try {
+    const raw = sessionStorage.getItem("unk_analysis_result");
+    storedResult = raw ? (JSON.parse(raw) as AnalysisResult) : null;
+  } catch {
+    storedResult = null;
+  }
+
+  return storedResult;
+}
+
+function getServerAnalysisResult(): null {
+  return null;
 }

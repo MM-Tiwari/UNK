@@ -55,7 +55,7 @@ const findingSchema = z.object({
   recommendation: z.string().trim().min(1).max(1500),
 });
 
-const analysisSchema = z.object({
+export const analysisSchema = z.object({
   findings: z.array(findingSchema).min(1).max(16),
 });
 
