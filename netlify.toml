@@ -1,0 +1,4 @@
+[build.environment]
+  # Turbopack can record server-only environment access in its disposable cache.
+  # Scan deployable output normally, but ignore this cache to avoid false positives.
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**"
