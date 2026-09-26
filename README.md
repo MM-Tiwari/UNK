@@ -269,21 +269,6 @@ npm run build
 
 The API key is read only by the server-side analysis route. It is not sent to the browser.
 
-## Deploying the project
-
-UNK is suitable for a portfolio or learning-project deployment on a Next.js-compatible hosting platform such as Vercel.
-
-General deployment steps:
-
-1. Import the GitHub repository into your hosting provider.
-2. Select the `main` branch.
-3. Add the environment variables listed above.
-4. Deploy the project using the default Next.js settings.
-5. Open the deployed `/analyze` page.
-6. Run a test analysis.
-
-After deployment, add your links to the **Live Links** section at the top of this README.
-
 ## Current limitations
 
 This is a portfolio and learning project. The following features are not implemented yet:
@@ -320,11 +305,3 @@ Current results are stored in browser `sessionStorage`, so they are temporary an
 - Never commit real API keys to GitHub.
 - Do not paste confidential information into a public deployment unless you understand how the AI provider processes it.
 - The current project does not provide authentication or permanent data deletion controls.
-
-## Resume description
-
-> Built UNK, a full-stack Next.js and TypeScript application that uses NVIDIA NIM and structured adversarial prompts to identify hidden assumptions, dependencies, failure modes, edge cases, and missing evidence in system and project proposals. Implemented server-side API key protection, Zod validation, deterministic risk scoring, a responsive results dashboard, automated tests, and production build verification.
-
-## License
-
-No license has been added yet. Add a license file if you plan to distribute or open-source the project.
